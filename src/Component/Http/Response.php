@@ -15,9 +15,8 @@ class Response
 
     public function send()
     {
-        $this->sendContent();
-
-        ob_end_clean();
+        http_response_code($this->statusCode);
+        echo $this->content;
     }
 
     public function setContent($content)
@@ -29,13 +28,6 @@ class Response
     public function setStatusCode($code)
     {
         $this->statusCode = (int)$code;
-        return $this;
-    }
-
-    public function sendContent()
-    {
-        echo $this->content;
-
         return $this;
     }
 }

@@ -31,4 +31,20 @@ class Request
     {
         return new static($query, $post, $cookies, $files, $server, $content);
     }
+
+    /**
+     * @return string
+     */
+    public function getMethod()
+    {
+        return strtolower($this->server['REQUEST_METHOD']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return parse_url($this->server['REQUEST_URI'], PHP_URL_PATH);
+    }
 }
