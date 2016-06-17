@@ -6,8 +6,10 @@ use Mvc\Component\Http\Request;
 
 class Route
 {
+    /** @var string */
     protected $method = 'get';
-    protected $path = '';
+    /** @var string */
+    protected $path = '/';
     /** @var callable */
     protected $handler;
 
@@ -18,16 +20,28 @@ class Route
         $this->handler = $this->parseHandler($handler);
     }
 
+    /**
+     * @param Request $request
+     * @return bool
+     */
     public function match(Request $request)
     {
-        return $this->method === $request->getMethod() && $this->path === $request->getPath();
+        return $this->method === $request->getMethod() &&
+                    preg_match("/^" . preg_quote($this->path) . "$/i", $request->getPath());
     }
 
+    /**
+     * @return callable
+     */
     public function getRequestHandler()
     {
         return $this->handler;
     }
 
+    /**
+     * @param string $handler
+     * @return callable
+     */
     private function parseHandler($handler)
     {
         list($controllerClass, $method) = explode('::', $handler);

@@ -14,6 +14,11 @@ class Router
         $this->routes[] = $route;
     }
 
+    /**
+     * @param Request $request
+     * @return callable
+     * @throws \Exception
+     */
     public function handle(Request $request)
     {
         foreach ($this->routes as $route) {
@@ -21,5 +26,6 @@ class Router
                 return $route->getRequestHandler();
             }
         }
+        throw new \Exception('');
     }
 }

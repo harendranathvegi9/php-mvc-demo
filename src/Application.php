@@ -8,13 +8,12 @@ use Mvc\Component\Routing\Router;
 
 class Application
 {
-    protected $config;
+    /** @var Router */
     protected $router;
 
-    public function __construct(Router $router, $config)
+    public function __construct(Router $router)
     {
         $this->router = $router;
-        $this->config = $config;
     }
 
     public function run()

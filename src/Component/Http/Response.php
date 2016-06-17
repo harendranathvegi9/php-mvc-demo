@@ -7,7 +7,7 @@ class Response
     protected $content;
     protected $statusCode;
 
-    public function __construct($statusCode = 200, $content = '')
+    public function __construct($content = '', $statusCode = 200)
     {
         $this->setContent($content);
         $this->setStatusCode($statusCode);
