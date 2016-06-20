@@ -21,7 +21,7 @@ class View
             ob_start();
 
             extract($params);
-            require sprintf('%s/%s/%s.phtml', VIEW_PATH, $this->controller, $template);
+            require sprintf('%s/%s/%s.phtml', VIEW_PATH, strtolower($this->controller), $template);
 
             return ob_get_clean();
         };

@@ -1,7 +1,7 @@
 {
   "name": "misantron/php-mvc-demo",
   "description": "Simple MVC application demo",
-  "keywords": ["php", "framework", "mvc", "demo"],
+  "keywords": ["php", "framework", "mvc", "application"],
   "license": "MIT",
   "authors": [
     {
@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "php": ">=5.4"
+    "php": ">=5.5"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.8"

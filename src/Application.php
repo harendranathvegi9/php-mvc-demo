@@ -18,7 +18,7 @@ class Application
 
     public function run()
     {
-        $request = Request::createFromGlobals();
+        $request = new Request();
         $response = $this->handle($request);
         $response->send();
     }
