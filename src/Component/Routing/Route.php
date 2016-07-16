@@ -15,7 +15,7 @@ class Route
 
     public function __construct($method, $path, $handler)
     {
-        $this->method = $method;
+        $this->method = strtolower($method);
         $this->path = $path;
         $this->handler = $this->parseHandler($handler);
     }
@@ -44,7 +44,7 @@ class Route
      */
     private function parseHandler($handler)
     {
-        list($controllerClass, $method) = explode('::', $handler);
-        return [new $controllerClass, $method . 'Action'];
+        list($controllerClass, $method) = explode(':', $handler);
+        return [new $controllerClass, $method];
     }
 }

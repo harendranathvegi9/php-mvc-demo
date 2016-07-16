@@ -2,7 +2,7 @@
 
 namespace Mvc\Component;
 
-class Controller
+abstract class Controller
 {
     /** @var View */
     public $view;

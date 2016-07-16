@@ -1,7 +1,8 @@
 <?php
 
-namespace Mvc\Component\Http;
+namespace Mvc\Tests\Component\Http;
 
+use Mvc\Component\Http\Request;
 use Mvc\Tests\TestCase;
 
 class RequestTest extends TestCase

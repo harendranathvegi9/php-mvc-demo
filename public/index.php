@@ -12,7 +12,7 @@ $router = new \Mvc\Component\Routing\Router();
 $app = new \Mvc\Application($router);
 
 $router->addRoute(
-    new \Mvc\Component\Routing\Route('get', '/', 'Mvc\Component\Controller::index')
+    new \Mvc\Component\Routing\Route('get', '/', 'Mvc\Component\Controller:indexAction')
 );
 
 $app->run();
