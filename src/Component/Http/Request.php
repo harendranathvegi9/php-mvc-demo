@@ -4,6 +4,12 @@ namespace Mvc\Component\Http;
 
 class Request
 {
+    const METHOD_GET = 'GET';
+    const METHOD_POST = 'POST';
+    const METHOD_PUT = 'PUT';
+    const METHOD_DELETE = 'DELETE';
+    const METHOD_OPTIONS = 'OPTIONS';
+
     /** @var array */
     public $query;
     /** @var array */
@@ -33,7 +39,7 @@ class Request
      */
     public function getMethod()
     {
-        return strtolower($this->server['REQUEST_METHOD']);
+        return strtoupper($this->server['REQUEST_METHOD']);
     }
 
     /**

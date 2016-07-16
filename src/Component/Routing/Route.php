@@ -7,7 +7,7 @@ use Mvc\Component\Http\Request;
 class Route
 {
     /** @var string */
-    protected $method = 'get';
+    protected $method = Request::METHOD_GET;
     /** @var string */
     protected $path = '/';
     /** @var callable */
@@ -15,7 +15,7 @@ class Route
 
     public function __construct($method, $path, $handler)
     {
-        $this->method = strtolower($method);
+        $this->method = strtoupper($method);
         $this->path = $path;
         $this->handler = $this->parseHandler($handler);
     }
@@ -27,7 +27,7 @@ class Route
     public function match(Request $request)
     {
         return $this->method === $request->getMethod() &&
-                    preg_match("/^" . preg_quote($this->path) . "$/i", $request->getPath());
+                    preg_match("/^" . preg_quote($this->path, '/') . "$/i", $request->getPath());
     }
 
     /**

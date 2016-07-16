@@ -2,6 +2,7 @@
 
 namespace Mvc\Component\Routing;
 
+use Mvc\Component\Exception\RouteNotFoundException;
 use Mvc\Component\Http\Request;
 
 class Router
@@ -15,9 +16,19 @@ class Router
     }
 
     /**
+     * @param Route[] $routes
+     */
+    public function addRoutes($routes)
+    {
+        foreach ($routes as $route) {
+            $this->addRoute($route);
+        }
+    }
+
+    /**
      * @param Request $request
      * @return callable
-     * @throws \Exception
+     * @throws RouteNotFoundException
      */
     public function handle(Request $request)
     {
@@ -26,6 +37,6 @@ class Router
                 return $route->getRequestHandler();
             }
         }
-        throw new \Exception('');
+        throw new RouteNotFoundException('Route does not exists');
     }
 }

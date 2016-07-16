@@ -42,7 +42,7 @@ class RequestTest extends TestCase
 
         $this->assertArrayHasKey('REQUEST_METHOD', $request->server);
         $this->assertEquals('POST', $request->server['REQUEST_METHOD']);
-        $this->assertEquals('post', $request->getMethod());
+        $this->assertEquals('POST', $request->getMethod());
     }
 
     public function testGetPath()

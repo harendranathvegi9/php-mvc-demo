@@ -11,8 +11,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $router = new \Mvc\Component\Routing\Router();
 $app = new \Mvc\Application($router);
 
-$router->addRoute(
-    new \Mvc\Component\Routing\Route('get', '/', 'Mvc\Component\Controller:indexAction')
-);
+$router->addRoutes([
+    new \Mvc\Component\Routing\Route(
+        \Mvc\Component\Http\Request::METHOD_GET, '/', 'Mvc\\Controller\\IndexController:indexAction'
+    )
+]);
 
 $app->run();
