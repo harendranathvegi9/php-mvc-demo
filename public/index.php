@@ -13,7 +13,7 @@ $app = new \Mvc\Application($router);
 
 $router->addRoutes([
     new \Mvc\Component\Routing\Route(
-        \Mvc\Component\Http\Request::METHOD_GET, '/', 'Mvc\\Controller\\IndexController:indexAction'
+        \Mvc\Component\Http\Request::METHOD_GET, '/', 'Mvc\\Controller\\AppController:indexAction'
     )
 ]);
 

@@ -5,23 +5,29 @@ namespace Mvc\Component;
 class View
 {
     /** @var string */
-    protected $controller;
+    protected $route;
     /** @var string */
     protected $layout;
 
-    public function __construct($controller, $layout)
+    public function __construct($route, $layout)
     {
-        $this->controller = $controller;
+        $this->route = $route;
         $this->layout = $layout;
     }
 
-    public function render($template, $params = [])
+    public function render($template = null, $params = [])
     {
-        $render = function($template) use ($params) {
+        if (!$template) {
+            $template = strtolower(str_replace('Action', '', $this->getAction()));
+        }
+        $controller = $this->getController();
+        $baseDir = strtolower(str_replace('Controller', '', $controller));
+
+        $render = function($template) use ($baseDir, $params) {
             ob_start();
 
             extract($params);
-            require sprintf('%s/%s/%s.phtml', VIEW_PATH, strtolower($this->controller), $template);
+            require sprintf('%s/%s/%s.phtml', VIEW_PATH, $baseDir, $template);
 
             return ob_get_clean();
         };
@@ -33,5 +39,19 @@ class View
         require sprintf('%s/layout/%s.phtml', VIEW_PATH, $this->layout);
 
         return ob_get_clean();
+    }
+
+    protected function getController()
+    {
+        $routeParts = explode(':', $this->route, 2);
+        $controllerClassWithNamespace = explode('\\', $routeParts[0]);
+
+        return end($controllerClassWithNamespace);
+    }
+
+    protected function getAction()
+    {
+        $routeParts = explode(':', $this->route, 2);
+        return $routeParts[1];
     }
 }

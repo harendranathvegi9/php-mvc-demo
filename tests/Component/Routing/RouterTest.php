@@ -20,7 +20,7 @@ class RouterTest extends TestCase
     public function testAddRoute()
     {
         $router = new Router();
-        $router->addRoute(new Route('GET', '/', 'Mvc\\Controller\\IndexController:indexAction'));
+        $router->addRoute(new Route('GET', '/', 'Mvc\\Controller\\AppController:indexAction'));
 
         $this->assertAttributeNotEmpty('routes', $router);
         $this->assertAttributeCount(1, 'routes', $router);
@@ -30,9 +30,9 @@ class RouterTest extends TestCase
     {
         $router = new Router();
         $router->addRoutes([
-            new Route('GET', '/', 'Mvc\\Controller\\IndexController:indexAction'),
-            new Route('GET', '/profile', 'Mvc\\Controller\\IndexController:profileAction'),
-            new Route('PUT', '/profile', 'Mvc\\Controller\\IndexController:profileUpdateAction'),
+            new Route('GET', '/', 'Mvc\\Controller\\AppController:indexAction'),
+            new Route('GET', '/profile', 'Mvc\\Controller\\AppController:profileAction'),
+            new Route('PUT', '/profile', 'Mvc\\Controller\\AppController:profileUpdateAction'),
         ]);
 
         $this->assertAttributeNotEmpty('routes', $router);
@@ -47,7 +47,7 @@ class RouterTest extends TestCase
         $request = new Request();
 
         $router = new Router();
-        $router->addRoute(new Route('GET', '/path', 'Mvc\\Controller\\IndexController:indexAction'));
+        $router->addRoute(new Route('GET', '/path', 'Mvc\\Controller\\AppController:indexAction'));
 
         $this->assertInternalType('array', $router->handle($request));
         $this->assertInternalType('callable', $router->handle($request));

@@ -3,14 +3,13 @@
 namespace Mvc\Controller;
 
 use Mvc\Component\Controller;
-use Mvc\Component\Http\Request;
 use Mvc\Component\Http\Response;
 
-class IndexController extends Controller
+class AppController extends Controller
 {
-    public $layout = 'main';
+    protected $layout = 'main';
 
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         $content = $this->view->render('index');
         return new Response($content);

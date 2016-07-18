@@ -2,15 +2,20 @@
 
 namespace Mvc\Component;
 
+use Mvc\Component\Http\Request;
+
 abstract class Controller
 {
+    /** @var Request */
+    public $request;
     /** @var View */
     public $view;
     /** @var string */
-    public $layout;
+    protected $layout;
     
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->view = new View(static::class, $this->layout);
+        $this->request = $request;
+        $this->view = new View($request->getAttribute('route'), $this->layout);
     }
 }

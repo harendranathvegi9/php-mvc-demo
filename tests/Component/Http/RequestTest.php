@@ -16,7 +16,7 @@ class RequestTest extends TestCase
         $this->assertEquals($_COOKIE, $request->cookies);
         $this->assertEquals($_FILES, $request->files);
         $this->assertEquals($_SERVER, $request->server);
-        $this->assertEquals(null, $request->content);
+        $this->assertAttributeEquals(null, 'content', $request);
     }
 
     public function testConstructor()
@@ -54,5 +54,14 @@ class RequestTest extends TestCase
         $this->assertArrayHasKey('REQUEST_URI', $request->server);
         $this->assertEquals('/base-dir/page.php?q=bogus&n=10', $request->server['REQUEST_URI']);
         $this->assertEquals('/base-dir/page.php', $request->getPath());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGetInvalidAttribute()
+    {
+        $request = new Request();
+        $request->getAttribute('foo');
     }
 }

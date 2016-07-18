@@ -10,12 +10,11 @@ class RouteTest extends TestCase
 {
     public function testConstructor()
     {
-        $route = new Route('get', '/path', 'Mvc\\Controller\\IndexController:indexAction');
+        $route = new Route('get', '/path', 'Mvc\\Controller\\AppController:indexAction');
 
         $this->assertAttributeEquals(Request::METHOD_GET, 'method', $route);
         $this->assertAttributeEquals('/path', 'path', $route);
-        $this->assertAttributeInternalType('array', 'handler', $route);
-        $this->assertAttributeInternalType('callable', 'handler', $route);
+        $this->assertAttributeInternalType('string', 'handler', $route);
     }
 
     public function testMatch()
@@ -24,7 +23,7 @@ class RouteTest extends TestCase
         $_SERVER['REQUEST_URI'] = '/path';
 
         $request = new Request();
-        $route = new Route('get', '/path', 'Mvc\\Controller\\IndexController:indexAction');
+        $route = new Route('get', '/path', 'Mvc\\Controller\\AppController:indexAction');
 
         $this->assertTrue($route->match($request));
 
@@ -32,7 +31,7 @@ class RouteTest extends TestCase
         $_SERVER['REQUEST_URI'] = '/path';
 
         $request = new Request();
-        $route = new Route('get', '/path', 'Mvc\\Controller\\IndexController:indexAction');
+        $route = new Route('get', '/path', 'Mvc\\Controller\\AppController:indexAction');
 
         $this->assertFalse($route->match($request));
 
@@ -40,16 +39,17 @@ class RouteTest extends TestCase
         $_SERVER['REQUEST_URI'] = '/path/to';
 
         $request = new Request();
-        $route = new Route('get', '/path', 'Mvc\\Controller\\IndexController:indexAction');
+        $route = new Route('get', '/path', 'Mvc\\Controller\\AppController:indexAction');
 
         $this->assertFalse($route->match($request));
     }
 
     public function testGetRequestHandler()
     {
-        $route = new Route('get', '/path', 'Mvc\\Controller\\IndexController:indexAction');
+        $route = new Route('get', '/path', 'Mvc\\Controller\\AppController:indexAction');
+        $request = new Request();
 
-        $this->assertInternalType('array', $route->getRequestHandler());
-        $this->assertInternalType('callable', $route->getRequestHandler());
+        $this->assertInternalType('array', $route->getRequestHandler($request));
+        $this->assertInternalType('callable', $route->getRequestHandler($request));
     }
 }

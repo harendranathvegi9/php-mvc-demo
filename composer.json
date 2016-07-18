@@ -1,6 +1,6 @@
 {
   "name": "misantron/php-mvc-demo",
-  "description": "Simple MVC application demo",
+  "description": "Simple MVC demo application",
   "keywords": ["php", "framework", "mvc", "application"],
   "license": "MIT",
   "authors": [

@@ -30,7 +30,7 @@ class Application
     protected function handle(Request $request)
     {
         $controller = $this->router->handle($request);
-        $response = call_user_func($controller, $request);
+        $response = call_user_func($controller);
         return $response;
     }
 }

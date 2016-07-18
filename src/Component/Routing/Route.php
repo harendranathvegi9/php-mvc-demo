@@ -10,14 +10,14 @@ class Route
     protected $method = Request::METHOD_GET;
     /** @var string */
     protected $path = '/';
-    /** @var callable */
+    /** @var string */
     protected $handler;
 
     public function __construct($method, $path, $handler)
     {
         $this->method = strtoupper($method);
         $this->path = $path;
-        $this->handler = $this->parseHandler($handler);
+        $this->handler = $handler;
     }
 
     /**
@@ -27,24 +27,26 @@ class Route
     public function match(Request $request)
     {
         return $this->method === $request->getMethod() &&
-                    preg_match("/^" . preg_quote($this->path, '/') . "$/i", $request->getPath());
+                    preg_match('/^' . preg_quote($this->path, '/') . '$/i', $request->getPath());
     }
 
     /**
+     * @param Request $request
      * @return callable
      */
-    public function getRequestHandler()
+    public function getRequestHandler(Request $request)
     {
-        return $this->handler;
+        $request->setAttribute('route', $this->handler);
+        return $this->parseHandler($request);
     }
 
     /**
-     * @param string $handler
+     * @param Request $request
      * @return callable
      */
-    private function parseHandler($handler)
+    private function parseHandler(Request $request)
     {
-        list($controllerClass, $method) = explode(':', $handler);
-        return [new $controllerClass, $method];
+        list($controllerClass, $method) = explode(':', $this->handler, 2);
+        return [new $controllerClass($request), $method];
     }
 }

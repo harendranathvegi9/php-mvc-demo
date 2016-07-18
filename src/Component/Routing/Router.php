@@ -34,7 +34,7 @@ class Router
     {
         foreach ($this->routes as $route) {
             if ($route->match($request)) {
-                return $route->getRequestHandler();
+                return $route->getRequestHandler($request);
             }
         }
         throw new RouteNotFoundException('Route does not exists');
